@@ -1,20 +1,24 @@
+import { useParams } from "react-router-dom";
 import FilmCard from "../components/FilmCard";
 
-export default function HomePage() {
+export default function SingleFilm() {
+    const { id } = useParams();
+
+
     const films = [
         {
             id: 1,
             title: "Inception",
             year: 2010,
             genre: "Sci-Fi",
-            director: "Christopher Nolan"
+            director: "Christopher Nolan",
         },
         {
             id: 2,
             title: "The Godfather",
             year: 1972,
-            genre: "Crime",
-            director: "Francis Ford Coppola"
+            genre: "Crime, Drama",
+            director: "Francis Ford Coppola",
         },
         {
             id: 3,
@@ -46,30 +50,15 @@ export default function HomePage() {
         },
     ];
 
+    const selectedFilm = films.find((film) => film.id === parseInt(id));
+
     return (
-
-        <>
-            <section>
-                <div className="container">
-                    <div className="row">
-                        {
-                            films.map(film => (
-                                <div className="col-4 p-3" key={film.id}>
-                                    <FilmCard film={film} />
-                                </div>
-                            ))
-                        }
-
-
-                    </div>
-                </div>
-
-
-
-            </section>
-
-
-        </>
-    )
-
+        <div>
+            {selectedFilm ? (
+                <FilmCard film={selectedFilm} />
+            ) : (
+                <p>Film not found.</p>
+            )}
+        </div>
+    );
 }
