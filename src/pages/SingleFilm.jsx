@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { FilmContext } from "../context/FilmContext";
 import FilmCard from "../components/FilmCard";
+import Form from "../components/Form";
 
 export default function SingleFilm() {
 
@@ -55,6 +56,7 @@ export default function SingleFilm() {
                 ))}
 
             </div>
+            <Form />
         </div>
     );
 }
