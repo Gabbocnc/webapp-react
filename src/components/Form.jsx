@@ -3,7 +3,6 @@ import { FilmContext } from "../context/FilmContext";
 import { useParams } from "react-router-dom";
 
 export default function Form() {
-    const { films } = useContext(FilmContext);
     const { id } = useParams();
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -13,6 +12,32 @@ export default function Form() {
         vote: ""
     });
 
+    const [errors, setErrors] = useState({
+        reviewer: "",
+        review: "",
+        vote: ""
+    });
+
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!formData.reviewer) {
+            newErrors.reviewer = "Please enter your name.";
+        } else if (formData.reviewer.length < 3) {
+            newErrors.reviewer = "Name must be at least 3 characters long.";
+        }
+
+        if (!formData.review) {
+            newErrors.review = "Please enter a review.";
+        } else if (formData.review.length < 10) {
+            newErrors.review = "Review must be at least 10 characters long.";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -20,8 +45,13 @@ export default function Form() {
             [name]: value
         }));
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         const newReview = {
             reviewer: formData.reviewer,
@@ -46,9 +76,10 @@ export default function Form() {
             })
 
     };
+
+
     return (
         <div>
-            {/* Pill button to toggle the form visibility */}
             <button
                 className="btn btn-primary mb-3"
                 type="button"
@@ -57,24 +88,24 @@ export default function Form() {
                 Add Review
             </button>
 
-            {/* Show the form when isFormVisible is true */}
             {isFormVisible && (
                 <div className="mt-3" id="reviewForm">
                     <form onSubmit={handleSubmit}>
+
                         {/* Nome del recensore */}
                         <div className="mb-3">
                             <label htmlFor="nameReviewers" className="form-label">
                                 Name Reviewer
                             </label>
                             <input
-                                className="form-control"
+                                className={`form-control ${errors.reviewer ? "is-invalid" : ""}`}
                                 id="nameReviewers"
                                 name="reviewer"
                                 placeholder="Write your name here"
                                 value={formData.reviewer}
                                 onChange={handleChange}
-                                required
                             />
+                            {errors.reviewer && <div className="invalid-feedback">{errors.reviewer}</div>}
                         </div>
 
                         {/* Recensione del film */}
@@ -83,15 +114,15 @@ export default function Form() {
                                 Film Review
                             </label>
                             <textarea
-                                className="form-control"
+                                className={`form-control ${errors.review ? "is-invalid" : ""}`}
                                 id="filmReview"
                                 name="review"
                                 rows="3"
                                 placeholder="Write your review here"
                                 value={formData.review}
                                 onChange={handleChange}
-                                required
                             ></textarea>
+                            {errors.review && <div className="invalid-feedback">{errors.review}</div>}
                         </div>
 
                         {/* Voto della recensione */}
@@ -101,7 +132,7 @@ export default function Form() {
                             </label>
                             <input
                                 type="number"
-                                className="form-control"
+                                className={`form-control ${errors.vote ? "is-invalid" : ""}`}
                                 id="voteReview"
                                 name="vote"
                                 placeholder="Choose a vote between 0 and 5"
@@ -110,8 +141,8 @@ export default function Form() {
                                 step="1"
                                 value={formData.vote}
                                 onChange={handleChange}
-                                required
                             />
+                            {errors.vote && <div className="invalid-feedback">{errors.vote}</div>}
                         </div>
 
                         {/* Pulsante di invio */}
