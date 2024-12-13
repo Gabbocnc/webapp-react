@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import Form from "./Form";
+
 
 export default function FilmCard({ film }) {
     return (
@@ -14,7 +14,6 @@ export default function FilmCard({ film }) {
                 <p>Genre: {film.genre}</p>
                 <p>{film.director}</p>
                 <p>{film.abstract}</p>
-
             </div>
 
         </div>

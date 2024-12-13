@@ -54,9 +54,9 @@ export default function SingleFilm() {
                     </ul>
 
                 ))}
-
+                <Form />
             </div>
-            <Form />
+
         </div>
     );
 }
