@@ -19,6 +19,7 @@ export default function HomePage() {
                         <p>No films available.</p>
                     )}
                 </div>
+
             </div>
         </section>
     );
