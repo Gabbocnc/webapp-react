@@ -73,6 +73,7 @@ export default function Form() {
             })
             .then((data) => {
                 console.log("review :", data);
+                window.location.reload();
             })
 
     };
