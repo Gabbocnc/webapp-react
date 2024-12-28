@@ -10,7 +10,6 @@ import Loader from './components/Loader';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);

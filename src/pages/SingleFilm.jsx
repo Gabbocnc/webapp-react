@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { FilmContext } from "../context/FilmContext";
 import FilmCard from "../components/FilmCard";
-import Form from "../components/Form";
+import Form from "../components/ReviewForm";
 
 export default function SingleFilm() {
 
